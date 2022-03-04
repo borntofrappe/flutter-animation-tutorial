@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trips/screens/home.dart';
+// import 'package:trips/screens/sandbox.dart';
 
 void main() {
   runApp(MyApp());

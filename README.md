@@ -240,3 +240,113 @@ return IconButton(
     onPressed: () {}
 );
 ```
+
+## Built-in animations
+
+Flutter provides widgets to implicitly animate several properties.
+
+With `AnimatedContainer` gradually change values such as margin, width and color.
+
+With `AnimatedOpacity` gradually change the opacity.
+
+Both widgets require a `duration` field.
+
+```dart
+AnimatedContainer(
+    duration: Duration(seconds: 1),
+)
+```
+
+Any property set on the nested widget and updated with `setState` is then automatically tweened over time.
+
+```dart
+// set up variable
+_color = Colors.blue;
+
+// use in AnimatedContainer
+AnimatedContainer(
+    duration: Duration(seconds: 1),
+    color: _color,
+)
+
+// update through setState
+setState(() {
+    _color: Colors.purple;
+})
+```
+
+## TweenAnimationBuilder
+
+With the `TweenAnimationBuilder` widget define implicit animations with a start and end value. Use the tweened result in the application.
+
+Begin by wrapping the widgets to-be-animated in `TweenAnimationBuilder`.
+
+```dart
+TweenAnimationBuilder(
+    child: Text()
+)
+```
+
+The widget requires three fields: `duration`, `tween` and `builder`.
+
+With `duration` describe the duration for the tween.
+
+```dart
+duration: const Duration(milliseconds: 500),
+```
+
+With `tween` define the start and end value.
+
+```dart
+tween: Tween<double>(begin: 0, end: 1),
+```
+
+With `builder` elaborate a function which receives a context, the tweened value and the widget — in the example `Text`.
+
+```dart
+builder: (BuildContext context, double _tweenedValue, Widget? child) {}
+```
+
+In the function return a widget. For instance an `Opacity` widget which wraps around the child and changes is opacity.
+
+```dart
+return Opacity(
+    opacity: _tweenedValue,
+    child: child
+)
+```
+
+To animate multiple properties return a more complex widget tree.
+
+```dart
+return Opacity(
+    opacity: _tweenedValue,
+    child: Padding(
+        padding: EdgeInsets.only(top: _tweenedValue * 20),
+        child: child
+    )
+)
+```
+
+## Hero animation
+
+Use the `Hero` widget to animate widgets between screens.
+
+Wrap the widget in a `Hero` widget.
+
+```dart
+child: Hero(
+    child: Image.asset()
+)
+```
+
+Add the required `tag` field as a unique string.
+
+```dart
+child: Hero(
+    tag: 'location-img-${trip.img}',
+    child: Image.asset()
+)
+```
+
+Repeat the same setup in a different screen and Flutter creates the animation.
