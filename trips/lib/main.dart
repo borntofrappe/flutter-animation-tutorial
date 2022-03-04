@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:trips/screens/home.dart';
 
 void main() {
-  runApp(
-    const MaterialApp(
-      title: 'Flutter Animation Tutorial',
-      home: SafeArea(child: Text('Hello world'))
-    )
-  );
+  runApp(MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  const MyApp({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Trips',
+      home: Home()
+    );
+  }
+}
