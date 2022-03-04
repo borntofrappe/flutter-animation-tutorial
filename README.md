@@ -350,3 +350,60 @@ child: Hero(
 ```
 
 Repeat the same setup in a different screen and Flutter creates the animation.
+
+## Mixin
+
+Mixin provide an interface to include additional functionalities.
+
+As an example, a `User` class might define a method so that every instance can invoke the function.
+
+
+```dart
+void main() {
+  User().sayHello();
+}
+
+
+class User {
+  void sayHello() {
+    print('Hello');
+  }
+}
+```
+
+A class extending `User` has access to the same method.
+
+
+```dart
+void main() {
+  PoliteUser().sayHello();
+}
+
+class PoliteUser extends User {}
+```
+
+For additional functionalities you can specify attributes and methods in the extending class _or_ rely on a mixin.
+
+Define the mixin.
+
+```dart
+mixin Goodbye {
+  void sayGoodbye() {
+    print('Goodbye');
+  }
+}
+```
+
+Add the functionality of the mixin to the extending class.
+
+```dart
+void main() {
+  PoliteUser().sayHello();
+  PoliteUser().sayGoodbye();
+}
+
+class PoliteUser extends User with Goodbye {}
+```
+
+## Animation controller
+
