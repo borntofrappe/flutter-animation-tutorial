@@ -1,4 +1,4 @@
-[Flutter Animation Tutorial](https://youtube.com/playlist?list=PL4cUxeGkcC9gP1qg8yj-Jokef29VRCLt1)
+# [Flutter Animation Tutorial](https://youtube.com/playlist?list=PL4cUxeGkcC9gP1qg8yj-Jokef29VRCLt1)
 
 > instead of instantiating the project from the first lesson I try to recreate the application from scratch
 
@@ -111,7 +111,7 @@ List<Widget> _tripTiles = [];
 
 The list is populated in two steps:
 
-- with `_addTrips` loop though a list of `Trip` objects to call for each instance the `_buildTile` function
+- with `_addTrips` loop through a list of `Trip` objects to call for each instance the `_buildTile` function
 
   ```dart
   for (Trip trip in _trips) {
@@ -146,7 +146,7 @@ For each trip object the `ListTile` widget has several properties:
 
 - `trailing` to highlight the price
 
-In the `initState` method, lifecycle function invoked as the widget is first created, call `_addTrips` to populate the list of widgets.
+In the `initState` method, the lifecycle function invoked as the widget is first created, call `_addTrips` to populate the list of widgets.
 
 ```dart
 @override
@@ -180,7 +180,7 @@ Create `details.dart` as a stateless widget which receives a trip object.
 
 In the `build` function return a `Scaffold` widget with several fields and a specific widget tree.
 
-In a column add a `ClipRRect` widget to show a clippd version of the image associated with the trip.
+In a column add a `ClipRRect` widget to show a clipped version of the image associated with the trip.
 
 ```dart
 ClipRRect(child: Image.asset())
@@ -192,7 +192,7 @@ Add a `ListTile` widget to describe the trip.
 ListTile()
 ```
 
-In the tile illustrate the trip with several a `title` and `subtitle`. Add also an instance of the heart widget in the `trailing field.
+In the tile illustrate the trip with a `title` and `subtitle`. Add also an instance of the heart widget in the `trailing` field.
 
 ```dart
 ListTile(
@@ -349,11 +349,11 @@ child: Hero(
 )
 ```
 
-Repeat the same setup in a different screen and Flutter creates the animation.
+In the moment you repeat the same structure in a different screen, with the `Hero` widget and the `tag` field, animates the transition between pages.
 
 ## Mixin
 
-Mixin provide an interface to include additional functionalities.
+Mixins provide an interface to include additional functionalities.
 
 As an example, a `User` class might define a method so that every instance can invoke the function.
 
@@ -601,7 +601,7 @@ Invoke the dispose method in the dispose lifecycle function.
 
 `ColorTween` interpolates between a start and end value, changing the color of the icon between grey and red.
 
-For the size the idea is to interpolate between three values, effectively expanding the icon for brief amount of time.
+For the size the idea is to interpolate between three values, effectively expanding the icon for a brief amount of time.
 
 Create a variable to keep track of the animation.
 
@@ -659,7 +659,7 @@ Icon(
 
 ---
 
-The course uses the value directly the `size` field of the icon widget.
+The course uses the value directly in the `size` field of the icon widget.
 
 ```dart
 Icon(
@@ -682,7 +682,7 @@ Transform.scale(
 
 Specify a curve to modify the pace of an animation, its timing function.
 
-With built-in animations add a curve directly in the animatng widget.
+With built-in animations add a curve directly in the animating widget.
 
 ```dart
 TweenAnimationBuilder(
@@ -799,7 +799,7 @@ final Tween<Offset> _offsetIn = Tween(begin: const Offset(-1, 0), end: const Off
 
 ### Key
 
-`AnimatedList` is not enough to run the animation. It is necessary to instruct flutter of the changing state through the global key.
+`AnimatedList` is not enough to run the animation. It is necessary to instruct Flutter of the changing state through the global key.
 
 In the moment you add new items, for instance.
 
@@ -853,9 +853,9 @@ _tripTiles.add(_buildTile(trip));
 _listKey.currentState?.insertItem(_tripTiles.length - 1);
 ```
 
-To stagger the animation the course relies on dart concept of _futures_, promises to run logic in sequence. The idea is to chain multiple futures so that Flutter waits before adding a new item and updating the key.
+To stagger the animation the course relies on dart's concept of _futures_, promises to run logic in sequence. The idea is to chain multiple futures so that Flutter waits before adding a new item and updating the key.
 
-Define a starting, empty primise.
+Define a starting, empty promise.
 
 ```dart
 Future ft = Future(() {});
