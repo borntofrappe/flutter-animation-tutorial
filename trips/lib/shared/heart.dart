@@ -33,12 +33,6 @@ class _HeartState extends State<Heart> with TickerProviderStateMixin {
       ]
     ).animate(_curve);
 
-    // _controller?.forward();
-
-    // _controller?.addListener(() {
-    //   setState(() {});
-    // });
-
     _controller.addStatusListener((status) {
       if(status == AnimationStatus.completed) {
         setState(() {
@@ -63,22 +57,22 @@ class _HeartState extends State<Heart> with TickerProviderStateMixin {
     return AnimatedBuilder(
       animation: _controller,
       builder: (BuildContext context, _) {
-        return Transform.scale(
-          scale: _sizeAnimation.value,
-          child: IconButton(
-            icon: Icon(
+        return IconButton(
+          icon: Transform.scale(
+            scale: _sizeAnimation.value,
+            child: Icon(
               Icons.favorite,
               color: _colorAnimation.value,
               size: 30
             ),
-            onPressed: () {
-              if(isFavorite) {
-                _controller.reverse();
-              } else {
-                _controller.forward();
-              }
-            }
           ),
+          onPressed: () {
+            if(isFavorite) {
+              _controller.reverse();
+            } else {
+              _controller.forward();
+            }
+          }
         );
       }
     );

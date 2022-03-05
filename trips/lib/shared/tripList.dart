@@ -10,9 +10,18 @@ class TripList extends StatefulWidget {
 }
 
 class _TripListState extends State<TripList> {
-  final GlobalKey _listKey = GlobalKey();
-
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  final Tween<Offset> _offset = Tween(begin: const Offset(-1, 0), end: const Offset(0, 0));
+  
   List<Widget> _tripTiles = [];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _addTrips();
+    });
+  }
 
   Widget _buildTile(Trip trip) {
     return ListTile(
@@ -68,25 +77,31 @@ class _TripListState extends State<TripList> {
       Trip(title: 'Space Blast', price: '600', nights: '4', img: 'space.png'),
     ];
 
+    Future ft = Future(() {});
+
     for (Trip trip in _trips) {
-      _tripTiles.add(_buildTile(trip));
+      ft = ft.then((_) {
+        return Future.delayed(const Duration(milliseconds: 200), () {
+
+        _tripTiles.add(_buildTile(trip));
+        _listKey.currentState?.insertItem(_tripTiles.length - 1);
+        });
+      });
     }
   }
 
 
   @override
-  void initState() {
-    super.initState();
-    _addTrips();
-  }
-
-
-  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return AnimatedList(
       key: _listKey,
-      itemCount: _tripTiles.length,
-      itemBuilder: (_, i) => _tripTiles[i]
+      initialItemCount: _tripTiles.length,
+      itemBuilder: (context, i, animation) {
+        return SlideTransition(
+          child: _tripTiles[i],
+          position: animation.drive(_offset)
+        );
+      }
     );
   }
 }
