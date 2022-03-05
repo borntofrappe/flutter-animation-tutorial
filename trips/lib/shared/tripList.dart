@@ -81,11 +81,10 @@ class _TripListState extends State<TripList> {
 
     for (Trip trip in _trips) {
       ft = ft.then((_) {
-        return Future.delayed(const Duration(milliseconds: 200), () {
-
         _tripTiles.add(_buildTile(trip));
         _listKey.currentState?.insertItem(_tripTiles.length - 1);
-        });
+
+        return Future.delayed(const Duration(milliseconds: 200), () {});
       });
     }
   }
