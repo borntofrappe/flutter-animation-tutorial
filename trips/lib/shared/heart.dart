@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Heart extends StatefulWidget {
-  const Heart({ Key? key }) : super(key: key);
+  const Heart({Key? key}) : super(key: key);
 
   @override
   State<Heart> createState() => _HeartState();
@@ -19,26 +19,23 @@ class _HeartState extends State<Heart> with TickerProviderStateMixin {
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this
-    );
+        duration: const Duration(milliseconds: 300), vsync: this);
 
     _curve = CurvedAnimation(parent: _controller, curve: Curves.slowMiddle);
 
-    _colorAnimation = ColorTween(begin: Colors.grey[400], end: Colors.red).animate(_curve);
-    _sizeAnimation = TweenSequence(
-      <TweenSequenceItem<double>>[
-        TweenSequenceItem<double>(tween: Tween(begin: 1, end: 1.5), weight: 50),
-        TweenSequenceItem<double>(tween: Tween(begin: 1.5, end: 1), weight: 50),
-      ]
-    ).animate(_curve);
+    _colorAnimation =
+        ColorTween(begin: Colors.grey[400], end: Colors.red).animate(_curve);
+    _sizeAnimation = TweenSequence(<TweenSequenceItem<double>>[
+      TweenSequenceItem<double>(tween: Tween(begin: 1, end: 1.5), weight: 50),
+      TweenSequenceItem<double>(tween: Tween(begin: 1.5, end: 1), weight: 50),
+    ]).animate(_curve);
 
     _controller.addStatusListener((status) {
-      if(status == AnimationStatus.completed) {
+      if (status == AnimationStatus.completed) {
         setState(() {
           isFavorite = true;
         });
-      } else if(status == AnimationStatus.dismissed) {
+      } else if (status == AnimationStatus.dismissed) {
         setState(() {
           isFavorite = false;
         });
@@ -55,26 +52,21 @@ class _HeartState extends State<Heart> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _controller,
-      builder: (BuildContext context, _) {
-        return IconButton(
-          icon: Transform.scale(
-            scale: _sizeAnimation.value,
-            child: Icon(
-              Icons.favorite,
-              color: _colorAnimation.value,
-              size: 30
-            ),
-          ),
-          onPressed: () {
-            if(isFavorite) {
-              _controller.reverse();
-            } else {
-              _controller.forward();
-            }
-          }
-        );
-      }
-    );
+        animation: _controller,
+        builder: (BuildContext context, _) {
+          return IconButton(
+              icon: Transform.scale(
+                scale: _sizeAnimation.value,
+                child: Icon(Icons.favorite,
+                    color: _colorAnimation.value, size: 30),
+              ),
+              onPressed: () {
+                if (isFavorite) {
+                  _controller.reverse();
+                } else {
+                  _controller.forward();
+                }
+              });
+        });
   }
 }
